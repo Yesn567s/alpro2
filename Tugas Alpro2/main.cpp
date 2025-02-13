@@ -11,11 +11,13 @@
 #include <iomanip>
 #include <thread>
 #include <chrono>
+#include <string>
 
 using namespace std;
 
 chrono::high_resolution_clock::time_point start;
-int time_state;
+int time_state, output;
+fstream outf;
 
 void timer_start(){
  start = chrono::high_resolution_clock::now(); // Start timer
@@ -34,7 +36,6 @@ void timer_end(){
 
 void create_file(){
     srand(time(0));
-    fstream outf;
     int random,temp,sizes=1000000;
     vector <int> isi; // array for "isi" variables
 
@@ -53,6 +54,46 @@ void create_file(){
     }
 
     outf.close();
+}
+
+void selection_sort(){
+    cout << "Hello World!";
+}
+
+void straight_select_sort(){
+    cout << "Hello World!";
+}
+
+void bubble_sort(){
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+
+    for (int i=0; i<temp.size(); i++){
+        for (int j=1+i; j<temp.size()-1-i; j++){
+            if (temp[i] > temp[j]){
+                swap(temp[i], temp[j]);
+            }
+        }
+    }
+
+    outf.open("hasil_bubble_sort.txt",ios::out); // create the file as "keluaran.txt"
+    for(int i=0;i<1000000;i++){
+        outf<<temp[i]<<endl;
+    }
+
+    outf.close();
+
+    cout << "\nPress any key to return to the menu...";
+    _getch();
+}
+
+void two_way_bubble(){
+    cout << "Hello World!";
 }
 
 int main()
@@ -95,7 +136,10 @@ int main()
                 cout << "Hello World!";
                 break;
             case 3:
-                cout << "Hello World!";
+                system("cls");
+                timer_start();
+                bubble_sort();
+                timer_end();
                 break;
             case 4:
                 cout << "Hello World!";
