@@ -57,7 +57,36 @@ void create_file(){
 }
 
 void selection_sort(){
-    cout << "Hello World!";
+//    fstream read_file("keluaran.txt");
+//    vector <int> temp;
+//
+//    while ((read_file >> output)){
+//        temp.push_back(output); //read le file and insert to vector
+//    }
+//    read_file.close();
+
+    int test[6]{1, 5, 7, 3, 9, 2};
+
+    for (int i=0; i<6; i++){
+            int min_idx = i;
+        for (int j=i+1; j<6; ++j){
+            if (test[j] < test[min_idx]){
+                min_idx = j;
+            }
+        }
+        swap(test[i], test[min_idx]);
+        cout << test[i] << " ";
+    }
+
+//    outf.open("hasil_selection_sort.txt",ios::out); // create the file as "keluaran.txt"
+//    for(int i=0;i<1000000;i++){
+//        outf<<temp[i]<<endl;
+//    }
+//
+//    outf.close();
+//
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 void straight_select_sort(){
@@ -130,10 +159,16 @@ int main()
 
             switch (submenu_input){
             case 1:
-                cout << "Hello World!";
+                system("cls");
+                timer_start();
+                selection_sort();
+                timer_end();
                 break;
             case 2:
-                cout << "Hello World!";
+                system("cls");
+                timer_start();
+                straight_select_sort();
+                timer_end();
                 break;
             case 3:
                 system("cls");
@@ -142,7 +177,10 @@ int main()
                 timer_end();
                 break;
             case 4:
-                cout << "Hello World!";
+                system("cls");
+                timer_start();
+                two_way_bubble();
+                timer_end();
                 break;
             default:
                 break;
