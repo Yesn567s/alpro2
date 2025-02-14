@@ -36,7 +36,7 @@ void timer_end(){
 
 void create_file(){
     srand(time(0));
-    int random,sizes=100000;
+    int random,sizes=1000;
     vector <int> isi; // array for "isi" variables
 
     for(int i=1;i<=sizes;i++){
@@ -90,12 +90,39 @@ void selection_sort(){
 }
 
 void straight_select_sort(){
-    cout << "Hello World!";
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+    timer_start();
+
+    int n=temp.size();
+    for (int i=0; i<temp.size(); i++){
+        for (int j=i+1; j<temp.size(); j++){
+            if (temp[i] > temp[j]){
+                swap(temp[i], temp[j]);
+            }
+        }
+    }
+    outf.open("hasil_straight_select_sort.txt",ios::out); // create the file as "hasil_bubble_sort.txt"
+    for(int i=0;i<n;i++){
+        outf<<temp[i]<<endl;
+    }
+
+    outf.close();
+
+    timer_end();
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 void bubble_sort(){
     fstream read_file("keluaran.txt");
     vector <int> temp;
+    bool swapped;
 
     while ((read_file >> output)){
         temp.push_back(output); //read le file and insert to vector
@@ -105,11 +132,16 @@ void bubble_sort(){
     int n=temp.size();
     timer_start();
 
-    for (int i=0; i<n; i++){
-        for (int j=0; j<temp.size(); j++){
-            if (temp[i] < temp[j]){
-                swap(temp[i], temp[j]);
+    for (int i=0; i<n-1; i++){
+            swapped = false;
+        for (int j=0; j<n-1-i; j++){
+            if (temp[j] > temp[j+1]){
+                swap(temp[j], temp[j+1]);
+                swapped = true;
             }
+        }
+        if(!swapped){
+            break;
         }
     }
 
@@ -137,7 +169,7 @@ int main()
     system("cls");
     time_state = 0;
     cout << "1. Create File" << endl;
-    cout << "2. Randomize numbers" << endl;
+    cout << "2. Sorting Menu" << endl;
     cout << "0. Exit" << endl;
     cout << ">> "; cin >> menu_input;
 
