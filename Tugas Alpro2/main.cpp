@@ -107,7 +107,7 @@ void bubble_sort(){
 
     for (int i=0; i<n; i++){
         for (int j=0; j<temp.size(); j++){
-            if (temp[i] > temp[j]){
+            if (temp[i] < temp[j]){
                 swap(temp[i], temp[j]);
             }
         }
