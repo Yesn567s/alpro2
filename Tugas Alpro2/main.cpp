@@ -155,6 +155,7 @@ void bubble_sort(){
     timer_end();
     cout << "\nPress any key to return to the menu...";
     _getch();
+    //2358.99 seconds
 }
 
 void two_way_bubble(){
