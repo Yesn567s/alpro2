@@ -36,7 +36,7 @@ void timer_end(){
 
 void create_file(){
     srand(time(0));
-    int random,temp,sizes=1000000;
+    int random,sizes=100000;
     vector <int> isi; // array for "isi" variables
 
     for(int i=1;i<=sizes;i++){
@@ -57,34 +57,34 @@ void create_file(){
 }
 
 void selection_sort(){
-//    fstream read_file("keluaran.txt");
-//    vector <int> temp;
-//
-//    while ((read_file >> output)){
-//        temp.push_back(output); //read le file and insert to vector
-//    }
-//    read_file.close();
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
 
-    int test[6]{1, 5, 7, 3, 9, 2};
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
 
-    for (int i=0; i<6; i++){
+    timer_start();
+    int n=temp.size();
+    for (int i=0; i<temp.size(); i++){
             int min_idx = i;
-        for (int j=i+1; j<6; ++j){
-            if (test[j] < test[min_idx]){
+        for (int j=i+1; j<temp.size(); j++){
+            if (temp[j] < temp[min_idx]){
                 min_idx = j;
             }
         }
-        swap(test[i], test[min_idx]);
-        cout << test[i] << " ";
+        swap(temp[i], temp[min_idx]);
     }
 
-//    outf.open("hasil_selection_sort.txt",ios::out); // create the file as "keluaran.txt"
-//    for(int i=0;i<1000000;i++){
-//        outf<<temp[i]<<endl;
-//    }
-//
-//    outf.close();
-//
+    outf.open("hasil_selection_sort.txt",ios::out); // create the file as "hasil_selection_sort.txt"
+    for(int i=0;i<n;i++){
+        outf<<temp[i]<<endl;
+    }
+
+    outf.close();
+
+    timer_end();
     cout << "\nPress any key to return to the menu...";
     _getch();
 }
@@ -102,21 +102,25 @@ void bubble_sort(){
     }
     read_file.close();
 
-    for (int i=0; i<temp.size(); i++){
-        for (int j=1+i; j<temp.size()-1-i; j++){
+    int n=temp.size();
+    timer_start();
+
+    for (int i=0; i<n; i++){
+        for (int j=0; j<temp.size(); j++){
             if (temp[i] > temp[j]){
                 swap(temp[i], temp[j]);
             }
         }
     }
 
-    outf.open("hasil_bubble_sort.txt",ios::out); // create the file as "keluaran.txt"
-    for(int i=0;i<1000000;i++){
+    outf.open("hasil_bubble_sort.txt",ios::out); // create the file as "hasil_bubble_sort.txt"
+    for(int i=0;i<n;i++){
         outf<<temp[i]<<endl;
     }
 
     outf.close();
 
+    timer_end();
     cout << "\nPress any key to return to the menu...";
     _getch();
 }
@@ -160,27 +164,19 @@ int main()
             switch (submenu_input){
             case 1:
                 system("cls");
-                timer_start();
                 selection_sort();
-                timer_end();
                 break;
             case 2:
                 system("cls");
-                timer_start();
                 straight_select_sort();
-                timer_end();
                 break;
             case 3:
                 system("cls");
-                timer_start();
                 bubble_sort();
-                timer_end();
                 break;
             case 4:
                 system("cls");
-                timer_start();
                 two_way_bubble();
-                timer_end();
                 break;
             default:
                 break;
