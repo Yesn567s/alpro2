@@ -185,7 +185,6 @@ void two_way_bubble(){
         for (int j=n-1-i; j>0; j++){
             if (temp[j-1] > temp[j]){
                 swap(temp[j-1], temp[j]);
-                swapped = true;
             }
         }
     }
