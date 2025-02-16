@@ -159,7 +159,47 @@ void bubble_sort(){
 }
 
 void two_way_bubble(){
-    cout << "Hello World!";
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
+    bool swapped;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+
+    int n=temp.size();
+    timer_start();
+
+    for (int i=0; i<n-1; i++){
+            swapped = false;
+        for (int j=0; j<n-1-i; j++){
+            if (temp[j] > temp[j+1]){
+                swap(temp[j], temp[j+1]);
+                swapped = true;
+            }
+        }
+        if(!swapped){
+            break;
+        }
+        for (int j=n-1-i; j>0; j++){
+            if (temp[j-1] > temp[j]){
+                swap(temp[j-1], temp[j]);
+                swapped = true;
+            }
+        }
+    }
+
+    outf.open("hasil_two_way_bubble_sort.txt",ios::out); // create the file as "hasil_two_way_bubble_sort.txt"
+    for(int i=0;i<n;i++){
+        outf<<temp[i]<<endl;
+    }
+
+    outf.close();
+
+    timer_end();
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 int main()
