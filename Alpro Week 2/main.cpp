@@ -41,7 +41,7 @@ void create_file(){ // belom di random
     unordered_set <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
 
     while (isi.size() < sizes){
-        random = rand() % 1000000 + 1;
+        random = rand() % 2000000 + 1;
         isi.insert(random);
     }
 
