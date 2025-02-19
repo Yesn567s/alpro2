@@ -12,6 +12,7 @@
 #include <thread>
 #include <chrono>
 #include <string>
+#include <unordered_set>
 
 using namespace std;
 
@@ -37,20 +38,17 @@ void timer_end(){
 void create_file(){ // belom di random
     srand(time(0));
     int random,sizes=1000000;
-    vector <int> isi; // array for "isi" variables
+    unordered_set <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
 
-    for(int i=1;i<=sizes;i++){
-        isi.push_back(i); // input numbers
-    }
-
-    for (int i = sizes - 1; i > 0; i--) {
-    random = rand() % (i + 1); // swap and randomize the numbers
-    swap(isi[i], isi[random]);
+    while (isi.size() < sizes){
+        random = rand() % 1000000 + 1;
+        isi.insert(random);
     }
 
     outf.open("keluaran.txt",ios::out); // create the file as "keluaran.txt"
-    for(int i=0;i<sizes;i++){
-        outf<<isi[i]<<endl;
+
+    for (int num : isi) {
+        outf << num << endl; // harus di ganti agak repot juga :moai:
     }
 
     outf.close();
