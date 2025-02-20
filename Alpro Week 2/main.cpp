@@ -17,7 +17,7 @@
 using namespace std;
 
 chrono::high_resolution_clock::time_point start;
-int time_state;
+int time_state, output;
 fstream outf;
 
 void timer_start(){
@@ -41,7 +41,7 @@ void create_file(){ // belom di random
     unordered_set <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
 
     while (isi.size() < sizes){
-        random = rand() % 2000000 + 1;
+        random = rand() % 1000000 + 1;
         isi.insert(random);
     }
 
@@ -59,7 +59,44 @@ void insertion_sort(){
 }
 
 void linear_search(){
-    cout << "Hello World!";
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
+    bool found = false;
+    int i, target;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+
+    int n=temp.size();
+
+    cout << "Enter number you want to find: " << endl << ">> "; cin >> target;
+
+    system("cls");
+    cout << "Searching...";
+
+    timer_start();
+
+    for (i=0; i<n; i++){
+        if (temp[i] == target){
+            found = true;
+            break;
+        }
+    }
+
+    timer_end();
+
+    system("cls");
+
+    if (found == true){
+        cout << "Number found, Index: " << i << endl;
+    } else {
+        cout << "Index not found" << endl;
+    }
+
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 void binary_search(){
