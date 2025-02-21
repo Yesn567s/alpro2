@@ -128,7 +128,56 @@ void binary_search(){
 }
 
 void interpolation_search(){
-    cout << "Hello World!";
+    fstream read_file("keluaran.txt");
+    vector <int> temp;
+    bool found = false;
+    int i, target;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+
+    int n=temp.size();
+
+    cout << "Enter number you want to find: " << endl << ">> "; cin >> target;
+
+    system("cls");
+    cout << "Searching...";
+
+    timer_start();
+    int low = 0, high = n-1,mid;
+    while(true){
+        if(high<low||temp[low]>target||temp[high]<target){
+            break;
+        }
+        else{
+            mid = low + (target-temp[low]/(temp[high]-temp[low])*(high-low))/1;
+            if(temp[mid]==target){
+                found = true;
+                break;
+            }
+            else if(temp[mid]<target){
+                low = mid + 1;
+            }
+            else if(temp[mid]>target){
+                high = mid - 1;
+            }
+        }
+    }
+
+    timer_end();
+
+    system("cls");
+
+    if (found == true){
+        cout << "Number found, Index: " << i << endl;
+    } else {
+        cout << "Index not found" << endl;
+    }
+
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 int main()
