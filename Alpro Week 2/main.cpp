@@ -12,7 +12,6 @@
 #include <thread>
 #include <chrono>
 #include <string>
-#include <unordered_set>
 
 using namespace std;
 
@@ -37,18 +36,22 @@ void timer_end(){
 
 void create_file(){
     srand(time(0));
-    int random,sizes=1000000;
-    unordered_set <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
+    int random,sizes=2000000;
+    vector <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
 
-    while (isi.size() < sizes){
-        random = rand() % 2000000 + 1;
-        isi.insert(random);
+    for (int i=1; i<sizes+1; i++){
+        isi.push_back(i);
+    }
+
+    for (int i = sizes - 1; i > 0; i--) {
+        random = rand() % (i + 1);
+        swap(isi[i], isi[random]);
     }
 
     outf.open("keluaran.txt",ios::out); // create the file as "keluaran.txt"
 
-    for (int num : isi) {
-        outf << num << endl; // harus di ganti agak repot juga :moai:
+    for (int i=0; i<sizes/2; i++) {
+        outf << isi[i] << endl; // harus di ganti agak repot juga :moai:
     }
 
     outf.close();
@@ -124,11 +127,58 @@ void linear_search(){
 }
 
 void binary_search(){
-    cout << "Hello World!";
+    fstream read_file("keluaran_sort.txt");
+    vector <int> temp;
+    bool found = false;
+    int target, mid;
+
+    while ((read_file >> output)){
+        temp.push_back(output); //read le file and insert to vector
+    }
+    read_file.close();
+
+    int n=temp.size();
+    int low = 0, high = n-1;
+
+    cout << "Enter number you want to find: " << endl << ">> "; cin >> target;
+
+    system("cls");
+    cout << "Searching...";
+
+    timer_start();
+
+    while (low <= high){
+        mid = low + (high - low) /2;
+
+        // check if target is equal with temp[mid]
+        if (temp[mid] == target){
+            found = true;
+            break;
+        }
+
+        // If  greater, ignore left half
+        if (temp[mid] < target){
+            low = mid + 1;
+        } else { // If x is smaller, ignore right half
+            high = mid - 1;
+        }
+    }
+
+    system("cls");
+    timer_end();
+
+    if (found == true){
+        cout << "Number found, Index: " << mid << endl;
+    } else {
+        cout << "Index not found" << endl;
+    }
+
+    cout << "\nPress any key to return to the menu...";
+    _getch();
 }
 
 void interpolation_search(){
-    fstream read_file("keluaran.txt");
+    fstream read_file("keluaran_sort.txt");
     vector <int> temp;
     bool found = false;
     int i, target;
@@ -147,31 +197,37 @@ void interpolation_search(){
 
     timer_start();
     int low = 0, high = n-1,mid;
-    while(true){
-        if(high<low||temp[low]>target||temp[high]<target){
+
+    while (low <= high && target >= temp[low] && target <= temp[high]){
+        if (low == high){
+            if (temp[low] == target){
+                found = true;
+                mid = low;
+            }
             break;
         }
-        else{
-            mid = low + (target-temp[low]/(temp[high]-temp[low])*(high-low))/1;
-            if(temp[mid]==target){
-                found = true;
-                break;
-            }
-            else if(temp[mid]<target){
-                low = mid + 1;
-            }
-            else if(temp[mid]>target){
-                high = mid - 1;
-            }
+
+        mid = low + ((target - temp[low]) * (high - low)) / (temp[high] - temp[low]); // mid yg sebelumnya bnyk out of bound memory, apa yg anda ketik anjir
+
+        if (mid < 0 || mid >= n){
+            break; // prevent out of bound memory,  (pake ini lah rusak terus aku ngetesnya :momoi_nig-:)
         }
+
+        if (temp[mid] == target) {
+            found = true;
+            break;
+        }
+        if (temp[mid] < target)
+            low = mid + 1;
+        else
+            high = mid - 1;
     }
 
+    system("cls");
     timer_end();
 
-    system("cls");
-
     if (found == true){
-        cout << "Number found, Index: " << i << endl;
+        cout << "Number found, Index: " << mid << endl;
     } else {
         cout << "Index not found" << endl;
     }
