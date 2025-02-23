@@ -3,4 +3,4 @@ Sort: 0.437497 seconds
 
 Linear search: 0.0781205 seconds
 Binary search: 0.0468755 seconds
-Interpolar search: 
+Interpolar search: 0.202 seconds
