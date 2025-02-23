@@ -37,7 +37,7 @@ void timer_end(){
 void create_file(){
     srand(time(0));
     int random,sizes=2000000;
-    vector <int> isi; // unordered set can only store unique numbers (you know what that means :grins:)
+    vector <int> isi;
 
     for (int i=1; i<sizes+1; i++){
         isi.push_back(i);
@@ -51,7 +51,7 @@ void create_file(){
     outf.open("keluaran.txt",ios::out); // create the file as "keluaran.txt"
 
     for (int i=0; i<sizes/2; i++) {
-        outf << isi[i] << endl; // harus di ganti agak repot juga :moai:
+        outf << isi[i] << endl; 
     }
 
     outf.close();
